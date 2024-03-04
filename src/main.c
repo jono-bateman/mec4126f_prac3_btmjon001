@@ -27,7 +27,7 @@ void main(void)
 
 	while(1)
 	{
-
+		delay(2000); // testing if it builds
 
 	}
 }
