@@ -11,6 +11,7 @@
 #include "lcd_stm32f0.h"
 #define HIGH 1
 #define LOW 0
+#include <stdio.h>
 
 
 // GLOBAL VARIABLES
@@ -37,10 +38,28 @@ void main(void);
 // MAIN FUNCTION
 void main(void)
 {
+	init_LCD();
+	unsigned char buffer[16];
 
+	// initial conditions
+	robot_state.robot_motion = forward;
+	robot_state.ir_left = HIGH;
+	robot_state.ir_right = HIGH;
 
-	while(1)
+	while(robot_state.robot_motion != stop)
 	{
+		sprintf(buffer, "%d", robot_state.robot_motion);
+		lcd_putstring(buffer);
+		delay(2000000/4); // reason for division by 4 was done by inspection
+		lcd_command(CLEAR);
+		delay(500000/4);
+		sprintf(buffer, "%d", robot_state.ir_left);
+		lcd_putstring(buffer);
+		lcd_command(LINE_TWO);
+		sprintf(buffer, "%d", robot_state.ir_right);
+		lcd_putstring(buffer);
+		delay(2000000/4);
+		lcd_command(CLEAR);
 
 	}
 }
